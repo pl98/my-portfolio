@@ -2,17 +2,128 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Phoebe Liang</title>
+    <link rel="icon" type="image/png" href="img/emojis/technologist.png" hreflang="en-us">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
   </head>
-  <body>
-    <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+
+  <body style="height:100%;">
+    <div id="site">
+        <div class="switch-wrapper">
+            <div class="sun"></div>
+            <div class="toggle-wrapper">
+                <input id="switch" type="checkbox">
+                <label for="switch" id="toggle">Toggle::after</label>
+            </div>
+            <div class="moon"></div>
+        </div>
+
+        <header class="intro">
+            <h1 class="intro__hello">Hello!
+                <span class="emoji wave-hand animated"></span>
+            </h1>
+
+            <h2 class="intro__tagline">I'm 
+                <span class="name">Phoebe Liang</span>, a Computer Science student based in Ann Arbor. 
+            </h2>
+
+            <h3 class="intro__contact">
+                <span>Get in touch</span>
+                <span class="emoji pointer"></span>
+                <span>
+                    <a href="mailto:phoebeliang@google.com" target="_blank" class="highlight-link">phoebeliang@google.com</a>
+                </span>
+            </h3>
+        </header>
+
+        <section class="section background">
+            <div class="section__title">Background</div>
+            <div class="section__content">
+                <p>
+                    I'm currently a STEP intern at
+                    <a class="underline-link" href="https://google.com/" target="_blank">Google</a>. I'm a rising junior studying Computer Science at 
+                    <a class="underline-link" href="https://https://umich.edu/" target="_blank">University of Michigan</a>. 
+                </p>
+
+                <p>
+                <strong>When I'm not in front of a computer screen</strong>, I'm probably reading, cooking or playing Animal Crossing. 
+                </p>
+            </div>
+        </section>
+
+        <section class="section skills">
+            <div class="section__title">Skills</div>
+            <div class="section__content">
+                <div class="skillz">
+                    <div class="skillz__category">
+                        <div class="skillz__category__label">Languages</div>
+                        <ul>
+                            <li class="skillz__category__item">C++</li>
+                            <li class="skillz__category__item">Python</li>
+                            <li class="skillz__category__item">HTML</li>
+                            <li class="skillz__category__item">CSS</li>
+                        </ul>
+                     </div>
+                    <div class="skillz__category">
+                        <div class="skillz__category__label">Tools</div>
+                        <ul>
+                            <li class="skillz__category__item">Git</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section experience">
+            <div class="section__title">Experience</div>
+            <div class="section__content">
+                <div class="jobs">
+                    <div class="job">
+                        <div class="time-place">
+                            <div class="job__company">
+                                <a href="https://https://www.aqumon.com/" target="_blank">Aqumon</a>
+                            </div>
+                            <div class="job__time">July - September 2019</div>
+                        </div>
+                        <div class="job__position">Quantitative Development Intern</div>
+                    </div>
+                </div>
+
+                <a href="{{site.resume}}" target="_blank" class="arrow-link">View My Resume</a>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer__copyright">
+                <div class="top">
+                    <span>Designed &amp; Developed by</span>
+                </div>
+                <div class="bottom">
+                    <span>Phoebe Liang</span>
+                    <span>2020</span>
+                </div>
+            </div>
+            <div class="footer__links">
+                <a href="mailto:phoebeliang@google.com" target="_blank" title="email">
+                    <span class="text">email</span>
+                </a>
+                <a href="https://linkedin.com/in/phoebeliang98/" target="_blank" title="linkedin">
+                    <span class="text">linkedin</span>
+                </a>
+                <a href="https://github.com/pl98" target="_blank" title="github">
+                    <span class="text">github</span>
+                </a>
+            </div>
+        </footer>
+
+        <button id="top-button">
+            <img src="img/emojis/pointing-up.png">
+        </button>
     </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js' type="text/javascript" charset="utf-8"></script>
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+    <script src="script.js" type="text/javascript" charset="utf-8"></script>
   </body>
 </html>
