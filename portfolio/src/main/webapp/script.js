@@ -11,6 +11,15 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+$(document).ready(function() {
+    $('.intro__hello').fadeTo(1000, 1);
+    setTimeout(function() {
+        $('.intro__tagline').fadeTo(700, 1);
+    }, 1500);
+    setTimeout(function() {
+        $('.intro__contact').fadeTo(700, 1);
+    }, 1700);
+});
 
 $(function() {
   const d = new Date();
@@ -41,7 +50,7 @@ $(function() {
   window.addEventListener(
     'scroll',
     function() {
-      if (window.scrollY < introHeight) {
+      if (window.scrollY <= introHeight) {
         $topButton.fadeIn();
       } else {
         $topButton.fadeOut();
@@ -89,3 +98,4 @@ $(function() {
   sr.reveal('.featured-projects', { viewFactor: 0.1 });
   sr.reveal('.other-projects', { viewFactor: 0.05 });
 });
+
