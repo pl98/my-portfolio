@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 $(document).ready(function() {
-    $('.intro__hello').fadeTo(1000, 1);
     setTimeout(function() {
         $('.intro__tagline').fadeTo(700, 1);
     }, 1500);
