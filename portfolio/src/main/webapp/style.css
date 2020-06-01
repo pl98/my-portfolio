@@ -472,7 +472,7 @@ strong{
     border-right: .15em solid transparent;
     white-space: nowrap;
     animation: 
-        typing 3.5s steps(30, end),
+        typing 8s steps(40, end),
         blink-caret .75s;
 }
 @keyframes typing {
