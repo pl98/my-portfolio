@@ -122,3 +122,11 @@ function addQuoteToDom(quote) {
     messageContainer.innerHTML = quote;
 }
 
+function getComments() {
+    fetch('/data').then(response => response.json()).then((comments) => {
+        console.log(comments[0]);
+        console.log(comments[1]);
+        console.log(comments[2]);
+    });
+}
+
