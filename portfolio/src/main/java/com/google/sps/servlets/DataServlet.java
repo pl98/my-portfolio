@@ -30,10 +30,6 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    comments.add("This is a pretty good website.");
-    comments.add("I like the dark mode!");
-    comments.add("The typewriter effect could be more realistic.");
-    
     String json = convertToJsonUsingGson(comments);
 
     response.setContentType("application/json");
@@ -44,5 +40,26 @@ public class DataServlet extends HttpServlet {
     Gson gson = new Gson();
     String json = gson.toJson(comments);
     return json;
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      String comment = getParameter(request, "comment-input", "");
+
+      comments.add(comment);
+
+      response.sendRedirect("/index.html");
+  }
+
+  /**
+   * @return the request parameter, or the default value if the parameter
+   *         was not specified by the client
+   */
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
   }
 }
