@@ -132,7 +132,7 @@ function getComments() {
 }
 
 function createCommentElement(comment) {
-  const commentElement = document.createElement('li');
+  const commentElement = document.createElement('p');
   commentElement.className = 'comment';
 
   const titleElement = document.createElement('span');
