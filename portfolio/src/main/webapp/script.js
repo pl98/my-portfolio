@@ -123,7 +123,7 @@ function addQuoteToDom(quote) {
 }
 
 function getComments() {
-    fetch('/data').then(response => response.json()).then((comments) => {
+    fetch('/data?numComments=2').then(response => response.json()).then((comments) => {
         const commentElement = document.getElementById("comment-container");
         comments.forEach((comment) => {
             commentElement.appendChild(createCommentElement(comment));
