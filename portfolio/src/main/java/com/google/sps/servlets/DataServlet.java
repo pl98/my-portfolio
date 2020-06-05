@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.Gson;
+import java.util.Collections;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -37,11 +38,12 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.ASCENDING);
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     int numComments = Integer.parseInt(request.getParameter("numComments"));
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(numComments));
+    Collections.reverse(results);
 
     List<Comment> comments = new ArrayList<>();
     
