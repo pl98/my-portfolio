@@ -124,7 +124,21 @@ function addQuoteToDom(quote) {
 
 function getComments() {
     fetch('/data').then(response => response.json()).then((comments) => {
-        document.getElementById("comment-container").innerText = comments;
+        const commentElement = document.getElementById("comment-container");
+        comments.forEach((comment) => {
+            commentElement.appendChild(createCommentElement(comment));
+        })
     });
+}
+
+function createCommentElement(comment) {
+  const commentElement = document.createElement('li');
+  commentElement.className = 'comment';
+
+  const titleElement = document.createElement('span');
+  titleElement.innerText = comment.title;
+
+  commentElement.appendChild(titleElement);
+  return commentElement;
 }
 
