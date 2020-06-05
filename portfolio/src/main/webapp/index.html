@@ -95,16 +95,33 @@
             </div>
         </section>
 
-        <section class="section comments">
+        <section class="section comment-enter">
             <div class="section__title">Have some feedback?</div>
             <div class="section__content">
                 <form action="/data" method="POST">
                     <textarea name="comment-input">Enter your comment</textarea>
                     <input type="submit" />
                 </form>
-
                 <br/>
+            </div>
+        </section>
 
+        <section class="section comments">
+            <div class="section__title">Comments 
+                <br/><br/>
+                <form>
+                    <label for="comments" style="font-size:0.8em;">Number of comments to display</label>
+                    <br/><br/>
+                    <select name="comments-data" id="comments-data" onchange="refreshComments();">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                    </select>
+                </form>
+            </div>
+            <div class="section__content">
                 <div id="comment-container"></div>
             </div>
         </section>
