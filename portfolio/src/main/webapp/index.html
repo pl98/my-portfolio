@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
   </head>
 
-  <body style="height:100%;">
+  <body style="height:100%;" onload="getComments()">
     <div id="site">
         <div class="switch-wrapper">
             <div class="sun"></div>
@@ -92,6 +92,16 @@
                 </div>
 
                 <a href="resume.pdf" target="_blank" class="arrow-link">View My Resume</a>
+            </div>
+        </section>
+
+        <section class="section comments">
+            <div class="section__title">Have some feedback?</div>
+            <div class="section__content">
+                <form action="/data" method="POST">
+                    <textarea name="comment-input">Enter your comment</textarea>
+                    <input type="submit" />
+                </form>
             </div>
         </section>
 
