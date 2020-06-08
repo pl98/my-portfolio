@@ -123,7 +123,13 @@ function addQuoteToDom(quote) {
 }
 
 function getComments() {
-    fetch('/data').then(response => response.json()).then((comments) => {
+    const numComments = document.getElementById("comments-data").value;
+
+    var queryString = "/data?numComments=" + numComments;
+
+    console.log(queryString);
+
+    fetch(queryString).then(response => response.json()).then((comments) => {
         const commentElement = document.getElementById("comment-container");
         comments.forEach((comment) => {
             commentElement.appendChild(createCommentElement(comment));
@@ -132,7 +138,7 @@ function getComments() {
 }
 
 function createCommentElement(comment) {
-  const commentElement = document.createElement('li');
+  const commentElement = document.createElement('p');
   commentElement.className = 'comment';
 
   const titleElement = document.createElement('span');
@@ -140,5 +146,11 @@ function createCommentElement(comment) {
 
   commentElement.appendChild(titleElement);
   return commentElement;
+}
+
+function refreshComments() {
+    document.getElementById("comment-container").innerHTML = "";
+
+    getComments();
 }
 
