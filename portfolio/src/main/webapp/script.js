@@ -127,8 +127,6 @@ function getComments() {
 
     var queryString = "/data?numComments=" + numComments;
 
-    console.log(queryString);
-
     fetch(queryString).then(response => response.json()).then((comments) => {
         const commentElement = document.getElementById("comment-container");
         comments.forEach((comment) => {
@@ -152,5 +150,13 @@ function refreshComments() {
     document.getElementById("comment-container").innerHTML = "";
 
     getComments();
+}
+
+function deleteComments() {
+    const request = new Request('/delete-data', {method: 'POST'});
+
+    fetch(request).then(() => {
+        refreshComments();
+    });
 }
 
