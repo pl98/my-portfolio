@@ -98,36 +98,10 @@ $(function() {
   sr.reveal('.other-projects', { viewFactor: 0.05 });
 });
 
-function getMessage() {
-    console.log("Fetching message.");
-
-    const responsePromise = fetch("/data");
-
-    responsePromise.then(handleResponse);
-}
-
-function handleResponse(response) {
-    console.log("Handling the response.");
-
-    const textPromise = response.text();
-
-    textPromise.then(addQuoteToDom);
-}
-
-function addQuoteToDom(quote) {
-    console.log("Adding message to dom: " + quote);
-
-    const messageContainer = document.getElementById("message-container");
-
-    messageContainer.innerHTML = quote;
-}
-
 function getComments() {
     const numComments = document.getElementById("comments-data").value;
 
     var queryString = "/data?numComments=" + numComments;
-
-    console.log(queryString);
 
     fetch(queryString).then(response => response.json()).then((comments) => {
         const commentElement = document.getElementById("comment-container");
@@ -152,5 +126,13 @@ function refreshComments() {
     document.getElementById("comment-container").innerHTML = "";
 
     getComments();
+}
+
+function deleteComments() {
+    const request = new Request('/delete-data', {method: 'POST'});
+
+    fetch(request).then(() => {
+        refreshComments();
+    });
 }
 
