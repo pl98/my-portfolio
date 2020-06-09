@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.Gson;
 import java.util.Collections;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -66,10 +68,12 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
       String comment = getParameter(request, "comment-input", "");
       long timestamp = System.currentTimeMillis();
+      UserService userService = UserServiceFactory.getUserService();
       
       Entity commentEntity = new Entity("Comment");
       commentEntity.setProperty("comment", comment);
       commentEntity.setProperty("timestamp", timestamp);
+      commentEntity.setProperty("email", userService.getCurrentUser().getEmail());
 
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(commentEntity);
