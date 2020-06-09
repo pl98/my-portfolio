@@ -96,6 +96,8 @@ $(function() {
   sr.reveal('.experience', { viewFactor: 0.2 });
   sr.reveal('.featured-projects', { viewFactor: 0.1 });
   sr.reveal('.other-projects', { viewFactor: 0.05 });
+
+  window.onload = getLoginStatus();
 });
 
 function getComments() {
@@ -136,3 +138,34 @@ function deleteComments() {
     });
 }
 
+function getLoginStatus() {
+    const button = document.createElement("button");
+    button.type = "button";
+
+    
+    fetch("/login-status").then(response => response.json()).then((status) => {
+        button.addEventListener('click', function() {
+            window.location.href = status.url;
+        });
+
+        if (status.status) {
+            document.getElementById("comment-form").style.display = "inline-block";
+
+            const logInOut = document.getElementById("comment-form-title");
+            logInOut.appendChild(document.createElement('br'));
+            logInOut.appendChild(document.createElement('br'));
+            
+            button.innerText = "Log Out";
+
+            logInOut.appendChild(button);
+        }
+        else {
+            const commentForm = document.getElementById("comment-form-content");
+            
+            button.innerText = "Log In";
+            button.id = "login-button";
+            button.style.display = "inline-block";
+            commentForm.appendChild(button);
+        }
+    });
+}
