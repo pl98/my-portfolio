@@ -542,7 +542,8 @@ strong{
 	-webkit-box-pack:justify;
 	-ms-flex-pack:justify;
 	justify-content:space-between; 
-    font-weight:700
+    font-weight:700;
+    color:#fff
 }
 .footer{
 	padding:50px 80px;
