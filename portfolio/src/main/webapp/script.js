@@ -98,6 +98,7 @@ $(function() {
   sr.reveal('.other-projects', { viewFactor: 0.05 });
 
   window.onload = getLoginStatus();
+  window.onload = getComments();
 });
 
 function getComments() {
