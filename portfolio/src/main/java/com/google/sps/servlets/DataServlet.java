@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.Gson;
 import java.util.Collections;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -39,7 +41,14 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
-    int numComments = Integer.parseInt(request.getParameter("numComments"));
+    int numComments;
+
+    if (request.getParameter("numComments") == null) {
+        numComments = 5;
+    }
+    else {
+        numComments = Integer.parseInt(request.getParameter("numComments"));
+    }
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(numComments));
@@ -51,8 +60,9 @@ public class DataServlet extends HttpServlet {
         long id = entity.getKey().getId();
         String title = (String) entity.getProperty("comment");
         long timestamp = (long) entity.getProperty("timestamp");
+        String email = (String) entity.getProperty("email");
 
-        Comment comment = new Comment(id, title, timestamp);
+        Comment comment = new Comment(id, title, timestamp, email);
         comments.add(comment);
     }
 
@@ -66,10 +76,12 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
       String comment = getParameter(request, "comment-input", "");
       long timestamp = System.currentTimeMillis();
+      UserService userService = UserServiceFactory.getUserService();
       
       Entity commentEntity = new Entity("Comment");
       commentEntity.setProperty("comment", comment);
       commentEntity.setProperty("timestamp", timestamp);
+      commentEntity.setProperty("email", userService.getCurrentUser().getEmail());
 
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(commentEntity);
