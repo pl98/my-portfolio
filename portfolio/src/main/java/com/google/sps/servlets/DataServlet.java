@@ -41,7 +41,14 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
-    int numComments = Integer.parseInt(request.getParameter("numComments"));
+    int numComments;
+
+    if (request.getParameter("numComments") == null) {
+        numComments = 5;
+    }
+    else {
+        numComments = Integer.parseInt(request.getParameter("numComments"));
+    }
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(numComments));
