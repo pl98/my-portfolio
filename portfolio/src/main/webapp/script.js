@@ -115,13 +115,20 @@ function getComments() {
 }
 
 function createCommentElement(comment) {
-  const commentElement = document.createElement('p');
+  const commentElement = document.createElement('div');
   commentElement.className = 'comment';
 
-  const titleElement = document.createElement('span');
-  titleElement.innerText = comment.title;
+  const nickName = document.createElement('div');
+  nickName.className = 'nickname';
+  nickName.innerText = comment.email;
 
-  commentElement.appendChild(titleElement);
+  commentElement.appendChild(nickName);
+
+  const commentText = document.createElement('div');
+  commentText.innerText = comment.title;
+
+  commentElement.appendChild(commentText);
+
   return commentElement;
 }
 

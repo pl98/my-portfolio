@@ -528,6 +528,22 @@ strong{
 	width:20px;
 	height:20px
 }
+
+.comments .comment-container{
+    margin-bottom:100px
+}
+.comments .comment{
+    margin-bottom:25px
+}
+.comments .comment .nickname{
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+	-webkit-box-pack:justify;
+	-ms-flex-pack:justify;
+	justify-content:space-between; 
+    font-weight:700
+}
 .footer{
 	padding:50px 80px;
 	display:-webkit-box;
