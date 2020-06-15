@@ -61,8 +61,9 @@ public class DataServlet extends HttpServlet {
         String title = (String) entity.getProperty("comment");
         long timestamp = (long) entity.getProperty("timestamp");
         String email = (String) entity.getProperty("email");
+        String nickname = (String) entity.getProperty("nickname");
 
-        Comment comment = new Comment(id, title, timestamp, email);
+        Comment comment = new Comment(id, title, timestamp, email, nickname);
         comments.add(comment);
     }
 
@@ -82,6 +83,7 @@ public class DataServlet extends HttpServlet {
       commentEntity.setProperty("comment", comment);
       commentEntity.setProperty("timestamp", timestamp);
       commentEntity.setProperty("email", userService.getCurrentUser().getEmail());
+      commentEntity.setProperty("nickname", getUserNickname(userService.getCurrentUser().getUserId()));
 
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(commentEntity);
@@ -99,5 +101,20 @@ public class DataServlet extends HttpServlet {
       return defaultValue;
     }
     return value;
+  }
+
+  /** Returns the nickname of the user with id, or null if the user has not set a nickname. */
+  private String getUserNickname(String id) {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Query query =
+        new Query("UserInfo")
+            .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
+    PreparedQuery results = datastore.prepare(query);
+    Entity entity = results.asSingleEntity();
+    if (entity == null) {
+      return null;
+    }
+    String nickname = (String) entity.getProperty("nickname");
+    return nickname;
   }
 }

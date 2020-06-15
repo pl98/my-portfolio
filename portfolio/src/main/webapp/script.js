@@ -120,7 +120,11 @@ function createCommentElement(comment) {
 
   const nickName = document.createElement('div');
   nickName.className = 'nickname';
-  nickName.innerText = comment.email;
+  nickName.innerText = "Anonymous";
+
+  if (comment.nickname !== "") {
+      nickName.innerText = comment.nickname;
+  }
 
   commentElement.appendChild(nickName);
 

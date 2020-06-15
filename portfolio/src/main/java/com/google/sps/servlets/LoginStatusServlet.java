@@ -23,7 +23,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.JsonObject; 
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that returns login status and log in/log out url depending on status. */
 @WebServlet("/login-status")
 public class LoginStatusServlet extends HttpServlet {
 
@@ -39,7 +39,7 @@ public class LoginStatusServlet extends HttpServlet {
           root.addProperty("url", logoutUrl);
       }
       else {
-          String loginUrl = userService.createLoginURL("/");
+          String loginUrl = userService.createLoginURL("/nickname");
           root.addProperty("url", loginUrl);
       }
 
