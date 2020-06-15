@@ -54,6 +54,10 @@ public class NicknameServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     
     String nickname = request.getParameter("nickname");
+    if (nickname == null) {
+        nickname = "";
+    }
+    
     String id = userService.getCurrentUser().getUserId();
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
