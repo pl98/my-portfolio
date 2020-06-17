@@ -14,10 +14,70 @@
 
 package com.google.sps;
 
-import java.util.Collection;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public final class FindMeetingQuery {
-  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
-  }
+    public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+        Collection<String> attendees = request.getAttendees();
+        long duration = request.getDuration();
+        List<TimeRange> occupied = new ArrayList<>();
+
+        for (Event event : events) {
+            if (hasOverlap(event, attendees)) {
+                occupied.add(event.getWhen());
+            }
+        }  
+
+        List<TimeRange> available = invert(combine(occupied));
+
+        return available.stream().filter(event -> event.duration() >= duration).collect(Collectors.toList());    
+    }
+
+    private boolean hasOverlap(Event event, Collection<String> attendees) {
+        Set<String> eventAttendees = new HashSet<>(event.getAttendees());
+
+        eventAttendees.retainAll(attendees);
+
+        return !eventAttendees.isEmpty();
+    } 
+
+    private List<TimeRange> combine(List<TimeRange> times) {
+        if (times.isEmpty() || times == null) {
+            return new ArrayList<>();
+        }
+
+        times.sort(TimeRange.ORDER_BY_START);
+        List<TimeRange> result = new ArrayList<>();
+        TimeRange prev = times.get(0);
+
+        for (TimeRange time : times) {
+            if (!prev.contains(time)) {
+                if(prev.overlaps(time)) {
+                    prev = TimeRange.fromStartEnd(prev.start(), time.end(), false);
+                }
+                else {
+                    result.add(prev);
+                    prev = time;
+                }
+            }
+        }
+
+        result.add(prev);
+        return result;
+    }
+
+    private List<TimeRange> invert(List<TimeRange> times) {
+        int start = TimeRange.START_OF_DAY;
+        List<TimeRange> result = new ArrayList<>();
+
+        for (TimeRange time : times) {
+            int end = time.start();
+            result.add(TimeRange.fromStartEnd(start, end, false));
+            start = time.end();
+        }
+
+        result.add(TimeRange.fromStartEnd(start, TimeRange.END_OF_DAY, true));
+        return result;
+    }
 }
